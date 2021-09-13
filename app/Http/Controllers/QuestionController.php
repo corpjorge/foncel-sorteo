@@ -15,13 +15,24 @@ class QuestionController extends Controller
 
     public function answer(Request $request, $id)
     {
+        if (is_array($request->answer)){
+            foreach ($request->answer as $answer ){
+                $response = new QuestionUser;
+                $response->user_id = auth()->user()->id;
+                $response->question_id = $id;
+                $response->answer = $answer;
+                $response->save();
+            }
+            return;
+        }
+
         $response = new QuestionUser;
         $response->user_id = auth()->user()->id;
-//        $response->question_id = $id;
+        $response->question_id = $id;
         $response->answer = $request->answer;
         $response->save();
 
-        if ($id === 20){
+        if ($id == 20){
             auth()->user()->update([ 'go' => 1 ]);
         }
     }

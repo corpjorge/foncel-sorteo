@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('document')->unique();
             $table->string('go')->nullable();
             $table->string('locked')->nullable();
+            $table->string('zone')->nullable();
             $table->string('new')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -21,18 +21,18 @@
                         <div v-for="(answers, index) in question.answers" class="col-6 themed-grid-col">
                             <div class="form-check">
                                 <template v-if="answers.type === 'radio'">
-                                    <input class="form-check-input" :type="answers.type" :id="answers.id" :value="answers.title" :name="'answers_'+question.id" v-model="responses.radio['question_'+question.id]" @click="select" required>
+                                    <input class="form-check-input" :type="answers.type" :id="answers.id" :value="answers.title" v-model="answer" @click="select" required>
                                     <label class="form-check-label" :for="answers.id">{{answers.title}}</label>
                                 </template>
                                 <template v-if="answers.type === 'checkbox'">
-                                    <input class="form-check-input" :type="answers.type" :id="answers.id" :value="answers.title" v-model="responses.checkbox" @click="select" required>
+                                    <input class="form-check-input" :type="answers.type" :id="answers.id" :value="answers.title" v-model="answer" @click="select" required>
                                     <label class="form-check-label" :for="answers.id">{{answers.title}}</label>
                                 </template>
                                 <template v-if="answers.type === 'number'">
-                                    <input class="form-control" :type="answers.type" :id="answers.id" :placeholder="answers.title" :name="'answers_'+question.id" v-model="responses.text['question_'+question.id]" @click="select">
+                                    <input class="form-control" :type="answers.type" :id="answers.id" :placeholder="answers.title" v-model="answer" @click="select">
                                 </template>
                                 <template v-if="answers.type === 'textarea'">
-                                    <textarea class="form-control" :id="answers.id" :placeholder="answers.title" rows="3" v-model="responses.textarea['question_'+question.id]" @click="select"></textarea>
+                                    <textarea class="form-control" :id="answers.id" :placeholder="answers.title" rows="3" v-model="answer" @click="select"></textarea>
                                 </template>
                             </div>
                         </div>
@@ -77,7 +77,7 @@ export default {
             id: 1,
             question: {},
             progress: 0,
-            answer: null,
+            answer: [],
             disabled: true,
             show: false,
             result: null,
@@ -93,40 +93,36 @@ export default {
             this.disabled = false;
         },
         getQuestions() {
+
+            if (this.id === 21) {
+                this.isActive = true
+                return;
+            }
+
             axios.get('/question/'+this.id).then(response => {
                 this.question = response.data
             })
         },
         sendResponses() {
-
-            if (!this.responses){
+            if (!this.answer){
                 return;
             }
 
-            axios.post('/response/'+this.id, this.responses)
-                .then(response => {
-
-                    this.id = this.id+1;
-                    if(this.progress === 0){
-                        this.progress = 5
-                    }
-
-                    this.progress = this.progress+5
-                    this.disabled = true;
-                    this.getQuestions();
-
-                    if (this.id === 20) {
-                        this.isActive = true
-                    }
-                })
+            axios.post('/answer/'+this.id, {answer : this.answer})
+            .then(response => {
+                this.id = this.id+1;
+                if(this.progress === 0){
+                    this.progress = 5
+                }
+                this.progress = this.progress+5
+                this.disabled = true;
+                this.answer = [];
+                this.getQuestions();
+            })
         },
         participate() {
             window.location.assign("/slots")
         },
-        close() {
-            this.show = false;
-            this.isActive_lost = false
-        }
     }
 }
 </script>

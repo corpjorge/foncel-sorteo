@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
       id: 1,
       question: {},
       progress: 0,
-      answer: null,
+      answer: [],
       disabled: true,
       show: false,
       result: null,
@@ -39,6 +39,11 @@ __webpack_require__.r(__webpack_exports__);
     getQuestions: function getQuestions() {
       var _this = this;
 
+      if (this.id === 21) {
+        this.isActive = true;
+        return;
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('/question/' + this.id).then(function (response) {
         _this.question = response.data;
       });
@@ -46,11 +51,13 @@ __webpack_require__.r(__webpack_exports__);
     sendResponses: function sendResponses() {
       var _this2 = this;
 
-      if (!this.responses) {
+      if (!this.answer) {
         return;
       }
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/response/' + this.id, this.responses).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/answer/' + this.id, {
+        answer: this.answer
+      }).then(function (response) {
         _this2.id = _this2.id + 1;
 
         if (_this2.progress === 0) {
@@ -59,20 +66,13 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.progress = _this2.progress + 5;
         _this2.disabled = true;
+        _this2.answer = [];
 
         _this2.getQuestions();
-
-        if (_this2.id === 20) {
-          _this2.isActive = true;
-        }
       });
     },
     participate: function participate() {
       window.location.assign("/slots");
-    },
-    close: function close() {
-      this.show = false;
-      this.isActive_lost = false;
     }
   }
 });
@@ -199,9 +199,8 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       type: answers.type,
       id: answers.id,
       value: answers.title,
-      name: 'answers_' + $data.question.id,
       "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-        return _ctx.responses.radio['question_' + $data.question.id] = $event;
+        return $data.answer = $event;
       }),
       onClick: _cache[2] || (_cache[2] = function () {
         return $options.select && $options.select.apply($options, arguments);
@@ -209,7 +208,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       required: ""
     }, null, 8
     /* PROPS */
-    , ["type", "id", "value", "name"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, _ctx.responses.radio['question_' + $data.question.id]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+    , ["type", "id", "value"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $data.answer]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
       "class": "form-check-label",
       "for": answers.id
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(answers.title), 9
@@ -224,7 +223,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       id: answers.id,
       value: answers.title,
       "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-        return _ctx.responses.checkbox = $event;
+        return $data.answer = $event;
       }),
       onClick: _cache[4] || (_cache[4] = function () {
         return $options.select && $options.select.apply($options, arguments);
@@ -232,7 +231,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       required: ""
     }, null, 8
     /* PROPS */
-    , ["type", "id", "value"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, _ctx.responses.checkbox]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+    , ["type", "id", "value"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $data.answer]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
       "class": "form-check-label",
       "for": answers.id
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(answers.title), 9
@@ -245,30 +244,29 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       type: answers.type,
       id: answers.id,
       placeholder: answers.title,
-      name: 'answers_' + $data.question.id,
       "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-        return _ctx.responses.text['question_' + $data.question.id] = $event;
+        return $data.answer = $event;
       }),
       onClick: _cache[6] || (_cache[6] = function () {
         return $options.select && $options.select.apply($options, arguments);
       })
     }, null, 8
     /* PROPS */
-    , ["type", "id", "placeholder", "name"])), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, _ctx.responses.text['question_' + $data.question.id]]]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), answers.type === 'textarea' ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("textarea", {
+    , ["type", "id", "placeholder"])), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $data.answer]]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), answers.type === 'textarea' ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("textarea", {
       key: 3,
       "class": "form-control",
       id: answers.id,
       placeholder: answers.title,
       rows: "3",
       "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
-        return _ctx.responses.textarea['question_' + $data.question.id] = $event;
+        return $data.answer = $event;
       }),
       onClick: _cache[8] || (_cache[8] = function () {
         return $options.select && $options.select.apply($options, arguments);
       })
     }, null, 8
     /* PROPS */
-    , ["id", "placeholder"])), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.responses.textarea['question_' + $data.question.id]]]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+    , ["id", "placeholder"])), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.answer]]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
