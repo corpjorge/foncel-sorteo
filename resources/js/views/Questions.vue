@@ -3,11 +3,12 @@
         <img src="assets/img/concurso/banner.jpg" alt="" style="width: 100%;"/>
         <div class="p-4 p-md-5 mb-4 text-white  bg-dark">
             <div class="col px-0">
-                <p class="lead" style="font-size: 2.25rem; font-weight: 400; line-height: 38px;"> Responde de manera correcta las preguntas para poder participar en el sorteo.</p>
-                <p>*Recuerda que si no conoces alguna de las respuestas podrás encontrarlas navegando nuestra pagina WEB</p>
+                <p class="lead" style="font-size: 2.25rem; font-weight: 400; line-height: 38px;"> Responde las preguntas para poder participar en el sorteo.</p>
             </div>
         </div>
-            <section v-for="question in questions" class="pricing-section pricing-style-1 mb-80">
+
+        <form>
+            <section class="pricing-section pricing-style-1">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
@@ -17,26 +18,34 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                    <div v-for="answers in question.answers" class="col-6 themed-grid-col">
-                        <div class="form-check">
-                            <input class="form-check-input" :type="answers.type" :id="answers.id" :value="answers.title" :name="'answers_'+answers.id" v-model="responses['question_a']">
-                            <label class="form-check-label" :for="answers.id">{{answers.title}}</label>
+                        <div v-for="(answers, index) in question.answers" class="col-6 themed-grid-col">
+                            <div class="form-check">
+                                <template v-if="answers.type === 'radio'">
+                                    <input class="form-check-input" :type="answers.type" :id="answers.id" :value="answers.title" :name="'answers_'+question.id" v-model="responses.radio['question_'+question.id]" @click="select" required>
+                                    <label class="form-check-label" :for="answers.id">{{answers.title}}</label>
+                                </template>
+                                <template v-if="answers.type === 'checkbox'">
+                                    <input class="form-check-input" :type="answers.type" :id="answers.id" :value="answers.title" v-model="responses.checkbox" @click="select" required>
+                                    <label class="form-check-label" :for="answers.id">{{answers.title}}</label>
+                                </template>
+                                <template v-if="answers.type === 'number'">
+                                    <input class="form-control" :type="answers.type" :id="answers.id" :placeholder="answers.title" :name="'answers_'+question.id" v-model="responses.text['question_'+question.id]" @click="select">
+                                </template>
+                                <template v-if="answers.type === 'textarea'">
+                                    <textarea class="form-control" :id="answers.id" :placeholder="answers.title" rows="3" v-model="responses.textarea['question_'+question.id]" @click="select"></textarea>
+                                </template>
+                            </div>
                         </div>
-                    </div>
-
                     </div>
                 </div>
             </section>
-
-        <div v-if="show" class="alert alert-danger" role="alert" style="padding: 11px; margin: 8px;">
-            Seleccione todas las opciones
-            <button @click="close" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </form>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" :style="'width:'+progress+'%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-
         <div class="d-grid gap-2" style="padding: 11px; margin: 8px;">
-            <button @click="sendResponses" class="button button-lg radius-10 btn-block" type="button">Terminar</button>
+            <button @click="sendResponses" class="button button-lg radius-10 btn-block" type="button" :disabled="disabled">Siguiente</button>
         </div>
-
 
         <div class="modal fade show slide-in-top" :class="{ modalActive: isActive }" id="exampleModal" tabindex="-1"
              aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog">
@@ -55,28 +64,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="modal fade show slide-in-top-lost" :class="{ modalActive: isActive_lost }" id="Modal" tabindex="-1"
-             aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header alert alert-danger">
-                        <h5 class="modal-title" id="exampleModalLabel">Incorrecto</h5>
-                    </div>
-                    <div class="modal-body" style="color: #862828">
-                        Error en tus respuestas, intenta de nuevo
-                    </div>
-                    <div class="modal-footer">
-                        <button @click="close" type="button" class="btn btn-primary btn-group">Volver a intentarlo
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
-
-
 </template>
 
 <script>
@@ -86,8 +74,11 @@ export default {
     name: "Questions",
     data() {
         return {
-            questions: {},
-            responses: {},
+            id: 1,
+            question: {},
+            progress: 0,
+            answer: null,
+            disabled: true,
             show: false,
             result: null,
             isActive: false,
@@ -98,28 +89,33 @@ export default {
         this.getQuestions()
     },
     methods: {
+        select() {
+            this.disabled = false;
+        },
         getQuestions() {
-            axios.get('/questions').then(response => {
-                this.questions = response.data
+            axios.get('/question/'+this.id).then(response => {
+                this.question = response.data
             })
         },
         sendResponses() {
-            if (Object.keys(this.responses).length < 3) {
-                return this.show = true;
-            }
-            this.show = false;
-            axios.post('/finish', this.responses)
-                .then(response => {
-                    this.result = response.data.R
 
-                    if (!this.result) {
-                        this.getQuestions();
-                        this.responses = {};
-                        this.isActive_lost = true;
-                        window.scrollTo(0, 0);
+            if (!this.responses){
+                return;
+            }
+
+            axios.post('/response/'+this.id, this.responses)
+                .then(response => {
+
+                    this.id = this.id+1;
+                    if(this.progress === 0){
+                        this.progress = 5
                     }
 
-                    if (this.result) {
+                    this.progress = this.progress+5
+                    this.disabled = true;
+                    this.getQuestions();
+
+                    if (this.id === 20) {
                         this.isActive = true
                     }
                 })

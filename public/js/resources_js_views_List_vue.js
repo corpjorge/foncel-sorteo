@@ -71,7 +71,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 }, "¿Cómo participar? "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", {
   "class": "mb-30 wow fadeInUp",
   "data-wow-delay": ".4s"
-}, " Responde las preguntas de manera correcta y participa girando la máquina de premios. Ganaras cuando se alineen nuestros logos. ")], -1
+}, " Responde las preguntas y participa girando la máquina de premios. Ganaras cuando se alineen nuestros logos. ")], -1
 /* HOISTED */
 );
 
@@ -79,7 +79,7 @@ var _hoisted_7 = {
   "class": "content"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"single-item\" data-v-3b49113d><div class=\"icon\" data-v-3b49113d><i class=\"lni lni-pencil-alt\" data-v-3b49113d></i></div><div class=\"text\" data-v-3b49113d><h6 class=\"mb-10\" data-v-3b49113d>Preguntas</h6><p data-v-3b49113d>Selecciona la respuesta correcta en cada pregunta.</p></div></div><div class=\"single-item\" data-v-3b49113d><div class=\"icon\" data-v-3b49113d><i class=\"lni lni-medall\" data-v-3b49113d></i></div><div class=\"text\" data-v-3b49113d><h6 class=\"mb-10\" data-v-3b49113d>Concurso</h6><p data-v-3b49113d>Gira la máquina de premios y prueba tu suerte.</p></div></div>", 2);
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"single-item\" data-v-3b49113d><div class=\"icon\" data-v-3b49113d><i class=\"lni lni-pencil-alt\" data-v-3b49113d></i></div><div class=\"text\" data-v-3b49113d><h6 class=\"mb-10\" data-v-3b49113d>Preguntas</h6><p data-v-3b49113d>Selecciona la respuesta deseada en cada pregunta.</p></div></div><div class=\"single-item\" data-v-3b49113d><div class=\"icon\" data-v-3b49113d><i class=\"lni lni-medall\" data-v-3b49113d></i></div><div class=\"text\" data-v-3b49113d><h6 class=\"mb-10\" data-v-3b49113d>Concurso</h6><p data-v-3b49113d>Gira la máquina de premios y prueba tu suerte.</p></div></div>", 2);
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
   "class": "about-image",

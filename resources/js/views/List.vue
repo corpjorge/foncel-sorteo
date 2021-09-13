@@ -7,7 +7,7 @@
                         <div class="section-title">
                             <h3 class="mb-25 wow fadeInUp" data-wow-delay=".2s">¿Cómo participar? </h3>
                             <p class="mb-30 wow fadeInUp" data-wow-delay=".4s">
-                                Responde las preguntas de manera correcta y participa girando la máquina de premios. Ganaras cuando se alineen nuestros logos.
+                                Responde las preguntas y participa girando la máquina de premios. Ganaras cuando se alineen nuestros logos.
                             </p>
                         </div>
                         <div class="content">
@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="text">
                                     <h6 class="mb-10">Preguntas</h6>
-                                    <p>Selecciona la respuesta correcta en cada pregunta.</p>
+                                    <p>Selecciona la respuesta deseada en cada pregunta.</p>
                                 </div>
                             </div>
                             <div class="single-item">

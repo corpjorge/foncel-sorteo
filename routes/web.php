@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/me', [Auth::class, 'user']);
     Route::get('/questions', [QuestionController::class, 'questions']);
+    Route::get('/question/{id}', [QuestionController::class, 'question']);
+    Route::post('/answer/{id}', [QuestionController::class, 'answer']);
     Route::post('/finish', [QuestionController::class, 'finish']);
     Route::post('/run', [SlotsController::class, 'run']);
     Route::post('/verify', [SlotsController::class, 'verify']);

@@ -8,9 +8,27 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
+    public function question(Question $questions, $id)
+    {
+        return $questions::where('id', $id)->first(['id', 'title',])->load('answers');
+    }
+
+    public function answer(Request $request, $id)
+    {
+        $response = new QuestionUser;
+        $response->user_id = auth()->user()->id;
+//        $response->question_id = $id;
+        $response->answer = $request->answer;
+        $response->save();
+
+        if ($id === 20){
+            auth()->user()->update([ 'go' => 1 ]);
+        }
+    }
+
     public function questions(Question $questions)
     {
-       return $questions::all(['id', 'title',])->load('answers');
+        return $questions::all(['id', 'title',])->load('answers');
     }
 
     public function finish(Request $request, Question $questions)
