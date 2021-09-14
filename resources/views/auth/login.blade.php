@@ -40,8 +40,8 @@
             <div class="col-lg-6">
                 <div class="signup-content-wrapper">
                     <div class="section-title">
-                        <h3 class="mb-20">Celebra junto con nosotros nuestro aniversario número 50</h3>
-                        <p>Tu eres nuestro invitado especial, ingresa tu número de cédula y participa para ganar increíbles premios.</p>
+                        <h3 class="mb-20">Es muy importante conocer tu opinión sobre nuestros servicios !Participa!</h3>
+                        <p>Contesta nuestra encuesta de percepción de servicios y participa de maravillosos premios que sortearemos todos los días.</p>
                     </div>
                     <div class="image">
                         <img src="/assets/img/concurso/login.png" alt="" class="w-100">
