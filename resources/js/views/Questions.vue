@@ -94,7 +94,7 @@ export default {
         },
         getQuestions() {
 
-            if (this.id === 21) {
+            if (this.id === 17) {
                 this.isActive = true
                 return;
             }

@@ -39,7 +39,7 @@ __webpack_require__.r(__webpack_exports__);
     getQuestions: function getQuestions() {
       var _this = this;
 
-      if (this.id === 21) {
+      if (this.id === 17) {
         this.isActive = true;
         return;
       }

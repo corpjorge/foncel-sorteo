@@ -41,8 +41,8 @@
                     <div class="col-lg-6 col-xl-5 offset-xl-1">
                         <div class="login-content-wrapper">
                             <div class="section-title mb-40">
-                                <h3 class="mb-20">Ya participaste el día de hoy</h3>
-                                <p>Mas premios te esperan mañana, Gracias por haber participado esperamos que hayas disfrutado.</p>
+                                <h3 class="mb-20">Ya participaste</h3>
+                                <p>Gracias por haber participado esperamos que hayas disfrutado.</p>
                             </div>
                         </div>
                     </div>

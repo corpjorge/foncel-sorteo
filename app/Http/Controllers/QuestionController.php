@@ -32,7 +32,7 @@ class QuestionController extends Controller
         $response->answer = $request->answer;
         $response->save();
 
-        if ($id == 20){
+        if ($id == 16){
             auth()->user()->update([ 'go' => 1 ]);
         }
     }

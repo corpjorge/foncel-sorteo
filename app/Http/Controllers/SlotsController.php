@@ -36,7 +36,7 @@ class SlotsController extends Controller
 
         $dayFinish = Participant::where('user_id', auth()->user()->id)->whereDate('created_at', date('Y-m-d'))->count();
 
-        if($dayFinish == 10){
+        if($dayFinish == 1){
             auth()->logout();
             return  view('dayFinish');
         };
@@ -158,7 +158,7 @@ class SlotsController extends Controller
 
             if ($participant->winner){
                 $text = 'Turno ganador girado';
-                Mail::to('corpjorge@hotmail.com')->cc('john.moreno@fyclsingenieria.com')->send(new turn($text));
+//                Mail::to('corpjorge@hotmail.com')->cc('john.moreno@fyclsingenieria.com')->send(new turn($text));
             }
         }
     }
@@ -173,7 +173,7 @@ class SlotsController extends Controller
             $winner->save();
 
             $text = 'Turno ganador visto';
-            Mail::to('corpjorge@hotmail.com')->cc('john.moreno@fyclsingenieria.com')->send(new turn($text));
+//            Mail::to('corpjorge@hotmail.com')->cc('john.moreno@fyclsingenieria.com')->send(new turn($text));
         }
 
     }
@@ -190,7 +190,7 @@ class SlotsController extends Controller
         $winner->verify = 1;
         $winner->save();
         $text = 'Premio Reclamado';
-        Mail::to('corpjorge@hotmail.com')->cc('john.moreno@fyclsingenieria.com')->send(new turn($text));
+//        Mail::to('corpjorge@hotmail.com')->cc('john.moreno@fyclsingenieria.com')->send(new turn($text));
         return view('congratulations');
     }
 
