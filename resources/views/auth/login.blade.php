@@ -74,12 +74,22 @@
                         </div>
                         @endif
 
+                        @if ($errors->has('fecha'))
+                            <div class="alert alert-danger" role="alert" style="color: #323450">
+                                {{ $errors->first('fecha') }}
+                            </div>
+                        @endif
+
                         @csrf
                         <div class="single-input">
                             <label htmlFor="signup-password">Cédula</label>
                             <input type="number" id="signup-password" name="document"
                                    placeholder="Ingrese cédula">
                             <input type="hidden" name="password" value="password">
+                        </div>
+                        <div class="single-input">
+                            <label for="start">Fecha de nacimiento</label>
+                            <input type="date" id="start" name="fecha" >
                         </div>
                         <a href="/assets/politica.pdf" target="_blank">Clic para ver términos y condiciones </a>
                         <div class="form-check mb-25">

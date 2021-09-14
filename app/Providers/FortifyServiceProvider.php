@@ -41,10 +41,16 @@ class FortifyServiceProvider extends ServiceProvider
              $request->validate([
                 'condiciones' => 'required|',
                 'document' => 'required',
+                'fecha' => 'required',
             ]);
 
             $user = User::where('document', $request->document)->first();
-            if ($user) {  return $user; }
+            $date = $user != null ? $user->date : false;
+
+            if($date != $request->fecha){
+                return false;
+            }
+            if ($user) { return $user; }
         });
 
         Fortify::createUsersUsing(CreateNewUser::class);
