@@ -13,7 +13,7 @@
                     <div class="row justify-content-center">
                         <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
                             <div class="section-title text-center mb-60">
-                                <p>{{question.title}}</p>
+                                <p style="font-size: 18px;">{{question.title}}</p>
                             </div>
                         </div>
                     </div>
