@@ -56,7 +56,7 @@
                     </div>
                     @endif
 
-                    <form method="post" action="{{ route('login') }}" class="signup-form">
+                    <form method="post" action="{{ route('login') }}" class="signup-form" autocomplete="off">
                         @if ($errors->has('email'))
                         <div class="alert alert-danger" role="alert" style="color: white">{{ $errors->first('email')
                             }}
