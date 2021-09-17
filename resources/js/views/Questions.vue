@@ -115,7 +115,9 @@ export default {
                     this.progress = 5
                 }
                 this.progress = this.progress+5
-                this.disabled = true;
+                if (this.id === 14){
+                    this.disabled = false;
+                }
                 this.answer = [];
                 this.getQuestions();
             })
