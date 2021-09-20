@@ -104,9 +104,11 @@ export default {
             })
         },
         sendResponses() {
-            if(typeof this.answer === 'object'){
-                if (Object.keys(this.answer).length === 0){
-                    return;
+            if (this.id !== 15) {
+                if (typeof this.answer === 'object') {
+                    if (Object.keys(this.answer).length === 0) {
+                        return;
+                    }
                 }
             }
             axios.post('/answer/'+this.id, {answer : this.answer})
@@ -117,7 +119,7 @@ export default {
                 }
                 this.disabled = true;
                 this.progress = this.progress+5
-                if (this.id === 14){
+                if (this.id === 15){
                     this.disabled = false;
                 }
                 this.answer = [];
