@@ -114,6 +114,7 @@ export default {
                 if(this.progress === 0){
                     this.progress = 5
                 }
+                this.disabled = true;
                 this.progress = this.progress+5
                 if (this.id === 14){
                     this.disabled = false;
