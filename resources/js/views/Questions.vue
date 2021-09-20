@@ -104,10 +104,11 @@ export default {
             })
         },
         sendResponses() {
-            if (!this.answer){
-                return;
+            if(typeof this.answer === 'object'){
+                if (Object.keys(this.answer).length === 0){
+                    return;
+                }
             }
-
             axios.post('/answer/'+this.id, {answer : this.answer})
             .then(response => {
                 this.id = this.id+1;
