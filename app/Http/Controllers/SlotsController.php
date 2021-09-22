@@ -44,7 +44,7 @@ class SlotsController extends Controller
         $date = \Carbon\Carbon::now();
         $gift = Gift::where('exception',1)->whereDate('date', $date->format('Y-m-d'))->first();
 
-        if ($gift and auth()->user()->new == 1){
+        if (auth()->user()->new == 1){
             $turn = 0;
             $win = false;
         } else {
