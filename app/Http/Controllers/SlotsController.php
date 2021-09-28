@@ -34,12 +34,12 @@ class SlotsController extends Controller
             return view('final');
         }
 
-        $dayFinish = Participant::where('user_id', auth()->user()->id)->whereDate('created_at', date('Y-m-d'))->count();
+        $dayFinish = Participant::where('user_id', auth()->user()->id)->count();
 
-        if($dayFinish == 1){
+        if($dayFinish){
             auth()->logout();
             return  view('dayFinish');
-        };
+        }
 
         $date = \Carbon\Carbon::now();
         $gift = Gift::where('exception',1)->whereDate('date', $date->format('Y-m-d'))->first();

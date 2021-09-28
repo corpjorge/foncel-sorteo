@@ -9,8 +9,8 @@ class SPA extends Controller
 {
     public function __invoke(Request $request)
     {
-        $dayFinish = Participant::where('user_id', auth()->user()->id)->whereDate('created_at', date('Y-m-d'))->count();
-        if($dayFinish == 1){
+        $dayFinish = Participant::where('user_id', auth()->user()->id)->count();
+        if($dayFinish){
             auth()->logout();
             return  view('dayFinish');
         };
